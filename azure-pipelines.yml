@@ -4,7 +4,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger: 
-- dev
+  branches:
+    include:
+    - Dev
+   
 
 pool:
   vmImage: ubuntu-latest
