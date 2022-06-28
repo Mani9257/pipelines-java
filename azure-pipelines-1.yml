@@ -61,6 +61,12 @@ stages:
               AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
           - task: IISWebAppManagementOnMachineGroup@0
             inputs:
-              IISDeploymentType: 'IISWebsite'
-              ActionIISWebsite: 'StartWebsite'
-              StartStopWebsiteName: 'LCS'
+              IISDeploymentType: 'IISWebApplication'
+              ParentWebsiteNameForApplication: 'LCS'
+              VirtualPathForApplication: '/LCS'
+              PhysicalPathForApplication: '%SystemDrive%\inetpub\wwwroot'
+              CreateOrUpdateAppPoolForApplication: true
+              AppPoolNameForApplication: 'LCSAPPP'
+              DotNetVersionForApplication: 'v4.0'
+              PipeLineModeForApplication: 'Integrated'
+              AppPoolIdentityForApplication: 'ApplicationPoolIdentity'
