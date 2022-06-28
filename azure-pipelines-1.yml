@@ -49,3 +49,41 @@ stages:
               DotNetVersionForApplication: 'v4.0'
               PipeLineModeForApplication: 'Integrated'
               AppPoolIdentityForApplication: 'ApplicationPoolIdentity'
+- stage: Deploy
+  displayName: Deploy To Test
+  dependsOn: Build
+  jobs:
+  - deployment: DeploytoIIS
+    displayName: Deploy the web application code to dev environment
+    pool:
+      vmImage: windows-latest    
+    environment:
+      name: Dev-env
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: IISWebAppManagementOnMachineGroup@0
+            inputs:
+              IISDeploymentType: 'IISWebsite'
+              ActionIISWebsite: 'CreateOrUpdateWebsite'
+              WebsiteName: 'LCS'
+              WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot'
+              WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
+              CreateOrUpdateAppPoolForWebsite: true
+              AppPoolNameForWebsite: 'LCSAPP'
+              DotNetVersionForWebsite: 'v4.0'
+              PipeLineModeForWebsite: 'Integrated'
+              AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
+          - task: IISWebAppManagementOnMachineGroup@0
+            inputs:
+              IISDeploymentType: 'IISWebApplication'
+              ParentWebsiteNameForApplication: 'LCS'
+              VirtualPathForApplication: '/LCS'
+              PhysicalPathForApplication: '%SystemDrive%\inetpub\wwwroot'
+              CreateOrUpdateAppPoolForApplication: true
+              AppPoolNameForApplication: 'LCSAPPP'
+              DotNetVersionForApplication: 'v4.0'
+              PipeLineModeForApplication: 'Integrated'
+              AppPoolIdentityForApplication: 'ApplicationPoolIdentity'
