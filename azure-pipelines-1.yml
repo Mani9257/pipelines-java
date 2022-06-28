@@ -9,9 +9,6 @@ trigger:
     include:
     - '*'
 
-variables:
-  - template: 'Templates/variables.yml'
-  
 stages:
 
 - stage: Build
