@@ -49,7 +49,6 @@ stages:
           steps:
           - task: IISWebAppManagementOnMachineGroup@0
             inputs:
-              EnableIIS: true
               IISDeploymentType: 'IISWebsite'
               ActionIISWebsite: 'CreateOrUpdateWebsite'
               WebsiteName: 'LCS'
