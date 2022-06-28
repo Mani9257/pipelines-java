@@ -20,17 +20,17 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-- task: SonarQubePrepare@5
+- task: IISWebAppManagementOnMachineGroup@0
   inputs:
-    SonarQube: 'SonarQube'
-    scannerMode: 'Other'
-    extraProperties: |
-      # Additional properties that will be passed to the scanner, 
-      # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
-      sonar.projectKey=java-project_java-
-- task: SonarQubeAnalyze@5
-- task: SonarQubePublish@5
-  inputs:
-    pollingTimeoutSec: '300'
+    IISDeploymentType: 'IISWebsite'
+    ActionIISWebsite: 'CreateOrUpdateWebsite'
+    WebsiteName: 'LCS'
+    WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot'
+    WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
+    AddBinding: false
+    CreateOrUpdateAppPoolForWebsite: true
+    AppPoolNameForWebsite: 'LCS1'
+    DotNetVersionForWebsite: 'v4.0'
+    PipeLineModeForWebsite: 'Integrated'
+    AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
 
