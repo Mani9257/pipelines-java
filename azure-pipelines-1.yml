@@ -49,7 +49,7 @@ stages:
               DotNetVersionForApplication: 'v4.0'
               PipeLineModeForApplication: 'Integrated'
               AppPoolIdentityForApplication: 'ApplicationPoolIdentity'
-- stage: Deploy
+- stage: Test
   displayName: Deploy To Test
   dependsOn: Build
   jobs:
